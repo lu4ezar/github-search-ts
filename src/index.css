@@ -1,0 +1,12 @@
+html,
+body,
+#root {
+	height: 100%;
+	margin: 0;
+}
+
+#root {
+	padding: 1em;
+	box-sizing: border-box;
+	background: silver;
+}
