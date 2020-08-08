@@ -17,7 +17,6 @@ const store = configureStore(initialState);
 store.runSaga(watchDataRequest);
 
 ReactDOM.render(
-  // @ts-ignore
   <Provider store={store}>
     <App />
   </Provider>,
