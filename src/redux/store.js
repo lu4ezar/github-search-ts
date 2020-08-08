@@ -8,13 +8,13 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, thunk];
 
-const configureStore = initialState => {
-	const store = createStore(
-		rootReducer,
-		initialState,
-		composeEnhancers(applyMiddleware(...middlewares))
-	);
-	return { ...store, runSaga: sagaMiddleware.run };
+const configureStore = (initialState) => {
+  const store = createStore(
+    rootReducer,
+    initialState,
+    composeEnhancers(applyMiddleware(...middlewares)),
+  );
+  return { ...store, runSaga: sagaMiddleware.run };
 };
 
 export default configureStore;
