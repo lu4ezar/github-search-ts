@@ -1,4 +1,4 @@
-type SearchString = string;
+export type SearchString = string;
 
 type SearchStringAction = "SET_SEARCH_STRING";
 
@@ -7,6 +7,4 @@ export type ISearchStringAction = {
   payload: SearchString;
 };
 
-export type ISearchStringArg = { searchString: SearchString };
-
-export type ISearchStringState = Readonly<ISearchStringArg>;
+export type ISearchStringState = Readonly<{ searchString: SearchString }>;
