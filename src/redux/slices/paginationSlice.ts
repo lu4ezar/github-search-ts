@@ -5,7 +5,7 @@ import { NextPageUrl } from "../../types/pagination";
 export const paginationSlice = createSlice({
   name: "pagination",
   initialState: {
-    page: 1,
+    page: 0,
     nextPageUrl: null as NextPageUrl
   },
   reducers: {},
