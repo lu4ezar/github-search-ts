@@ -1,9 +1,8 @@
 import styled from "styled-components";
+import { Card } from "@material-ui/core";
 
-export const StyledRepository = styled.div`
-  box-sizing: border-box;
-  border: 1px solid black;
-  margin: 1em 0;
+export const StyledRepository = styled(Card)`
+  margin: 1em;
   padding: 1em;
   & > p {
     color: cornflowerblue;
@@ -13,5 +12,6 @@ export const StyledRepository = styled.div`
   }
   & .react-icons {
     vertical-align: middle;
+    padding-right: 1rem;
   }
 `;
