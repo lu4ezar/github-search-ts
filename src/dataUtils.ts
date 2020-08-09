@@ -3,7 +3,6 @@ import { ISearchStringArg } from "./types/searchString";
 import { INextPageUrl } from "./types/pagination";
 
 const API_ROOT = "https://api.github.com";
-// https://api.github.com/orgs/styled-components/repos
 
 // type guard function
 const isSearchString = (
