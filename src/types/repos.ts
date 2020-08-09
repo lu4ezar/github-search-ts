@@ -5,7 +5,7 @@ export type Description = string;
 export type StargazersCount = number;
 export type WatchersCount = number;
 
-export type DataType = {
+export type IRepo = {
   id?: Id;
   name: Name;
   htmlUrl: HtmlUrl;
@@ -14,13 +14,12 @@ export type DataType = {
   watchersCount: WatchersCount;
 };
 
-export type DataArray = Array<DataType>;
+export type IRepoArray = Array<IRepo>;
 
-export type DataActions = "UPDATE_DATA";
+export type IRepoAction =
+  | { type: "repos/clearRepos" }
+  | { type: "repos/addRepos" };
 
-export type DataAction = {
-  type: DataActions;
-  value: DataType;
-};
-
-export type DataState = { readonly value: DataType };
+export interface IRepoState {
+  readonly repos: IRepoArray;
+}

@@ -1,10 +1,3 @@
-export type ErrorType = string;
+export type IError = string | null;
 
-export type ErrorActions = "UPDATE_ERROR_STATE";
-
-export type ErrorAction = {
-  type: ErrorActions;
-  value: ErrorType;
-};
-
-export type ErrorState = { readonly value: ErrorType };
+export type IErrorState = { readonly error: IError };

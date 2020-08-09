@@ -1,12 +1,17 @@
-type PageCount = number;
-type NextPageUrl = string;
+export type Page = number;
+export type NextPageUrl = string | null;
 
-export type PaginationType = {
-  pageCount: PageCount;
-  nextPageUrl?: NextPageUrl;
+export type INextPageUrl = {
+  nextPageUrl: NextPageUrl;
 };
 
-export type PaginationState = {
-  readonly pageCount: PageCount;
-  readonly nextPageUrl: NextPageUrl;
-};
+export interface IPagination extends INextPageUrl {
+  page: Page;
+}
+
+// type WithOptional<T, TRequired extends keyof T> = Partial<T> &
+//   Pick<T, TRequired>;
+//
+// export type IPaginationState = Readonly<WithOptional<IPagination, "pageCount">>;
+
+export type IPaginationState = Readonly<IPagination>;

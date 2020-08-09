@@ -1,3 +1,7 @@
-export type LoadingType = boolean;
+type LoadingIdle = "idle";
+type LoadingPending = "pending";
+export type ILoading = LoadingIdle | LoadingPending;
 
-export type LoadingState = Readonly<LoadingType>;
+export type ILoadingState = {
+  readonly loading: ILoading;
+};
