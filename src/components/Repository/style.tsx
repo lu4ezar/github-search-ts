@@ -10,4 +10,7 @@ export const StyledRepository = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+  & .react-icons {
+    vertical-align: middle;
+  }
 `;

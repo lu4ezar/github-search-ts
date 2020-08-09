@@ -1,4 +1,6 @@
 import React from "react";
+import { IconContext } from "react-icons";
+import { GoStar, GoEye, GoRepoForked } from "react-icons/go";
 import {
   Name,
   Url,
@@ -32,9 +34,14 @@ const Repository = ({
       </a>
     </h3>
     <div>
-      Stargazers: {stargazers}
-      Watchers: {watchers}
-      Forks: {forks}
+      <IconContext.Provider value={{ color: "blue", className: "react-icons" }}>
+        <GoStar />
+        {stargazers}
+        <GoEye />
+        {watchers}
+        <GoRepoForked />
+        {forks}
+      </IconContext.Provider>
     </div>
   </StyledRepository>
 );
