@@ -1,40 +1,40 @@
 import React from "react";
 import {
   Name,
-  HtmlUrl,
-  Description,
+  Url,
   StargazersCount,
-  WatchersCount
+  WatchersCount,
+  ForksCount
 } from "../../types/repos";
 import { StyledRepository } from "./style";
 
 type Props = {
   style: React.CSSProperties;
   name: Name;
-  htmlUrl: HtmlUrl;
-  description: Description;
-  stargazersCount: StargazersCount;
-  watchersCount: WatchersCount;
+  url: Url;
+  stargazers: StargazersCount;
+  watchers: WatchersCount;
+  forks: ForksCount;
 };
 
 const Repository = ({
   style,
   name,
-  htmlUrl,
-  description,
-  stargazersCount,
-  watchersCount
+  url,
+  stargazers,
+  watchers,
+  forks
 }: Props): JSX.Element => (
   <StyledRepository style={style}>
     <h3>
-      <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
+      <a href={url} target="_blank" rel="noopener noreferrer">
         {name}
       </a>
     </h3>
-    <p>{description}</p>
     <div>
-      Stargazers: {stargazersCount}
-      Watchers: {watchersCount}
+      Stargazers: {stargazers}
+      Watchers: {watchers}
+      Forks: {forks}
     </div>
   </StyledRepository>
 );

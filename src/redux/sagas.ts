@@ -53,7 +53,7 @@ function* dataRequestAsync() {
   yield put(fetchStart());
   try {
     const response: AxiosResponse = yield call(fetchData, { searchString });
-    if (!response.data.total_count) {
+    if (!response.data.length) {
       throw new Error("Nothing was found!");
     }
     const data: IRepoArray = stripData(response.data);

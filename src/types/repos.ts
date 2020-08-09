@@ -1,17 +1,17 @@
 export type Id = number;
 export type Name = string;
-export type HtmlUrl = string;
-export type Description = string;
+export type Url = string;
 export type StargazersCount = number;
 export type WatchersCount = number;
+export type ForksCount = number;
 
 export type IRepo = {
-  id?: Id;
+  id: Id;
   name: Name;
-  htmlUrl: HtmlUrl;
-  description: Description;
-  stargazersCount: StargazersCount;
-  watchersCount: WatchersCount;
+  url: Url;
+  stargazers: StargazersCount;
+  watchers: WatchersCount;
+  forks: ForksCount;
 };
 
 export type IRepoArray = Array<IRepo>;

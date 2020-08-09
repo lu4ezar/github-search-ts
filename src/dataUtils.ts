@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import { ISearchStringArg } from "./types/searchString";
 import { INextPageUrl } from "./types/pagination";
 
-const API_ROOT = "https://api.github.com/search/repositories";
+const API_ROOT = "https://api.github.com";
+// https://api.github.com/orgs/styled-components/repos
 
 // type guard function
 const isSearchString = (
@@ -17,7 +18,7 @@ export const fetchData = async (arg: any) => {
   let url;
   if (isSearchString(arg)) {
     // first page
-    url = `${API_ROOT}?q=${arg.searchString}`;
+    url = `${API_ROOT}/orgs/${arg.searchString}/repos?per_page=10`;
   } else {
     // subsequent pages
     url = arg.nextPageUrl || "";
@@ -45,21 +46,12 @@ export const getNextPageUrl = (response: AxiosResponse) => {
     .slice(1, -1);
 };
 
-export const stripData = ({ items }: any) =>
-  items.map(
-    ({
-      id,
-      name,
-      html_url,
-      description,
-      stargazers_count,
-      watchers_count
-    }: any) => ({
-      id,
-      name,
-      htmlUrl: html_url,
-      description,
-      stargazersCount: stargazers_count,
-      watchersCount: watchers_count
-    })
-  );
+export const stripData = (data: any) =>
+  data.map((repo: any) => ({
+    id: repo.id,
+    name: repo.name,
+    url: repo.html_url,
+    stargazers: repo.stargazers_count,
+    watchers: repo.watchers_count,
+    forks: repo.forks_count
+  }));
