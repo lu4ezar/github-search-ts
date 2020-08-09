@@ -1,9 +1,9 @@
-export type Id = number;
-export type Name = string;
-export type Url = string;
-export type StargazersCount = number;
-export type WatchersCount = number;
-export type ForksCount = number;
+type Id = number;
+type Name = string;
+type Url = string;
+type StargazersCount = number;
+type WatchersCount = number;
+type ForksCount = number;
 
 export type IRepo = {
   id: Id;
