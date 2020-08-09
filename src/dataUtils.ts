@@ -1,26 +1,16 @@
 import axios, { AxiosResponse } from "axios";
-import { ISearchStringArg } from "./types/searchString";
-import { INextPageUrl } from "./types/pagination";
+import { SearchString } from "./types/searchString";
+import { LoadedPages } from "./types/pagination";
 
 const API_ROOT = "https://api.github.com";
 
-// type guard function
-const isSearchString = (
-  str: ISearchStringArg | INextPageUrl
-): str is ISearchStringArg => {
-  return (str as ISearchStringArg).searchString !== undefined;
-};
-
-// type Arg = ISearchStringArg | INextPageUrl;
-
-export const fetchData = async (arg: any) => {
-  let url;
-  if (isSearchString(arg)) {
-    // first page
-    url = `${API_ROOT}/orgs/${arg.searchString}/repos?per_page=10`;
-  } else {
-    // subsequent pages
-    url = arg.nextPageUrl || "";
+export const fetchData = async (
+  searchString: SearchString,
+  loadedPages: LoadedPages
+) => {
+  let url = `${API_ROOT}/orgs/${searchString}/repos?per_page=10`;
+  if (loadedPages) {
+    url = url + `&page=${loadedPages + 1}`;
   }
   try {
     const response = await axios.get(url);
@@ -30,23 +20,29 @@ export const fetchData = async (arg: any) => {
   }
 };
 
-export const getNextPageUrl = (response: AxiosResponse) => {
-  const { link }: { link: INextPageUrl["nextPageUrl"] } = response.headers;
+export const getPaginationInfoFromResponseHeader = (
+  response: AxiosResponse
+) => {
+  const { link } = response.headers;
   if (!link) {
-    return null;
+    return 0;
   }
-  const nextLink = link.split(",").find(s => s.indexOf('rel="next"') > -1);
-  if (!nextLink) {
-    return null;
-  }
-  return nextLink
-    .trim()
-    .split(";")[0]
-    .slice(1, -1);
+  const linkFragments = link.split(",");
+  const lastPageLink = linkFragments.find((link: string) =>
+    link.match(/rel="last"/g)
+  );
+  const totalPages = getLastPageNumber(lastPageLink);
+  return totalPages;
 };
 
-export const stripData = (data: any) =>
-  data.map((repo: any) => ({
+const getLastPageNumber = (link: string) => {
+  const params = link.split("?")[1];
+  const lastPageParam = params.split("&")[1];
+  return Number(lastPageParam.replace(/[^0-9]/g, ""));
+};
+
+export const stripData = (data: any) => {
+  return data.map((repo: any) => ({
     id: repo.id,
     name: repo.name,
     url: repo.html_url,
@@ -54,3 +50,4 @@ export const stripData = (data: any) =>
     watchers: repo.watchers_count,
     forks: repo.forks_count
   }));
+};
