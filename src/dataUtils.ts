@@ -1,13 +1,26 @@
-import axios, { AxiosResponse } from 'axios';
+import axios, { AxiosResponse } from "axios";
+import { ISearchStringArg } from "./types/searchString";
+import { INextPageUrl } from "./types/pagination";
 
-const API_ROOT = 'https://api.github.com/search/repositories';
+const API_ROOT = "https://api.github.com/search/repositories";
+
+// type guard function
+const isSearchString = (
+  str: ISearchStringArg | INextPageUrl
+): str is ISearchStringArg => {
+  return (str as ISearchStringArg).searchString !== undefined;
+};
+
+// type Arg = ISearchStringArg | INextPageUrl;
 
 export const fetchData = async (arg: any) => {
   let url;
-  if (arg.searchString) {
+  if (isSearchString(arg)) {
+    // first page
     url = `${API_ROOT}?q=${arg.searchString}`;
   } else {
-    url = arg;
+    // subsequent pages
+    url = arg.nextPageUrl || "";
   }
   try {
     const response = await axios.get(url);
@@ -18,24 +31,21 @@ export const fetchData = async (arg: any) => {
 };
 
 export const getNextPageUrl = (response: AxiosResponse) => {
-  const { link } = response.headers;
+  const { link }: { link: INextPageUrl["nextPageUrl"] } = response.headers;
   if (!link) {
     return null;
   }
-  const nextLink = link
-    .split(',')
-    .find((s: any) => s.indexOf('rel="next"') > -1);
+  const nextLink = link.split(",").find(s => s.indexOf('rel="next"') > -1);
   if (!nextLink) {
     return null;
   }
   return nextLink
     .trim()
-    .split(';')[0]
+    .split(";")[0]
     .slice(1, -1);
 };
 
-/* eslint-disable camelcase */
-export const stripData = ({ items }: { items: any }) =>
+export const stripData = ({ items }: any) =>
   items.map(
     ({
       id,
@@ -43,13 +53,13 @@ export const stripData = ({ items }: { items: any }) =>
       html_url,
       description,
       stargazers_count,
-      watchers_count,
+      watchers_count
     }: any) => ({
       id,
       name,
       htmlUrl: html_url,
       description,
       stargazersCount: stargazers_count,
-      watchersCount: watchers_count,
-    }),
+      watchersCount: watchers_count
+    })
   );

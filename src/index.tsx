@@ -1,20 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import App from './containers/AppContainer';
-import configureStore from './redux/store';
+import App from './components/App';
 import './index.css';
-import watchDataRequest from './redux/sagas';
-
-const initialState = {
-  searchString: '',
-  data: [],
-  isLoading: false,
-  error: '',
-};
-
-const store = configureStore(initialState);
-store.runSaga(watchDataRequest);
+import store from './redux/store';
 
 ReactDOM.render(
   <Provider store={store}>
