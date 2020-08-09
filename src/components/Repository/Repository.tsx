@@ -1,15 +1,15 @@
 import React from "react";
-import styled from "styled-components";
-import type {
+import {
   Name,
   HtmlUrl,
   Description,
   StargazersCount,
-  WatchersCount,
-} from "../types/data";
+  WatchersCount
+} from "../../types/repos";
+import { StyledRepository } from "./style";
 
 type Props = {
-  style: any;
+  style: React.CSSProperties;
   name: Name;
   htmlUrl: HtmlUrl;
   description: Description;
@@ -17,27 +17,15 @@ type Props = {
   watchersCount: WatchersCount;
 };
 
-const StyledProject = styled.div`
-  box-sizing: border-box;
-  border: 1px solid black;
-  margin: 1em 0;
-  & > p {
-    color: cornflowerblue;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-`;
-
-const Project = ({
+const Repository = ({
   style,
   name,
   htmlUrl,
   description,
   stargazersCount,
-  watchersCount,
-}: Props) => (
-  <StyledProject style={style}>
+  watchersCount
+}: Props): JSX.Element => (
+  <StyledRepository style={style}>
     <h3>
       <a href={htmlUrl} target="_blank" rel="noopener noreferrer">
         {name}
@@ -48,7 +36,7 @@ const Project = ({
       Stargazers: {stargazersCount}
       Watchers: {watchersCount}
     </div>
-  </StyledProject>
+  </StyledRepository>
 );
 
-export default Project;
+export default Repository;
