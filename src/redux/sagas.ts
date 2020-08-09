@@ -31,7 +31,9 @@ function* dataRequestNextAsync() {
   }
   yield put(fetchStart());
   try {
-    const response: AxiosResponse = yield call(fetchData, { requestUrl });
+    const response: AxiosResponse = yield call(fetchData, {
+      nextPageUrl: requestUrl
+    });
     const data: IRepoArray = stripData(response.data);
     const nextPageUrl = getNextPageUrl(response);
     yield put(fetchSuccess(data, nextPageUrl));
