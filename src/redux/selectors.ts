@@ -9,12 +9,9 @@ export const selectPagination = (state: RootState) => state.pagination;
 
 export const selectCurrentPage = createSelector(
   [selectPagination, selectRepos],
-  (pagination, repos) => {
-    const data = repos.filter(
+  ({ currentPage }, repos) =>
+    repos.filter(
       (_, index) =>
-        index > (pagination.currentPage - 1) * 10 &&
-        index < pagination.currentPage - 1 + 10
-    );
-    return data;
-  }
+        index > (currentPage - 1) * 10 - 1 && index < currentPage * 10
+    )
 );
