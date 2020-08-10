@@ -1,64 +1,45 @@
-import React, { UIEvent } from "react";
-import debounce from "lodash.debounce";
-import { FixedSizeList } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { Button } from "@material-ui/core";
+import { Alert } from "@material-ui/lab";
 import Repository from "../Repository";
-import { fetchNextPage } from "../../redux/fetchActions";
-import { OuterList } from "./style";
-import { selectRepos, selectError } from "../../redux/selectors";
+import { fetchStart } from "../../redux/fetchActions";
+import { Container, ButtonContainer } from "./style";
+import { selectCurrentPage, selectError } from "../../redux/selectors";
 
-const debounceOnScroll = (fn: (event: UIEvent<HTMLElement>) => void) => {
-  const debounced = debounce(fn, 300);
-  return (event: UIEvent<HTMLElement>) => {
-    event.persist();
-    return debounced(event);
-  };
-};
-
-const List = () => {
+const List = ({ hasMore }: { hasMore: boolean }): JSX.Element => {
   const dispatch = useDispatch();
-  const repos = useSelector(selectRepos);
+  const repos = useSelector(selectCurrentPage);
   const error = useSelector(selectError);
 
-  const onScroll = (e: UIEvent<HTMLElement>): void => {
-    const target = e.target as HTMLElement;
-    const { scrollHeight, scrollTop, clientHeight } = target;
-    const listBottom = scrollHeight - scrollTop === clientHeight;
-    if (listBottom) {
-      dispatch(fetchNextPage());
+  useEffect(() => {
+    const scrollEl = document.getElementById("scroll");
+    if (scrollEl) {
+      scrollEl.scrollTo({
+        top: 0,
+        behavior: "smooth"
+      });
     }
+  }, [repos]);
+
+  const onClick = () => {
+    dispatch(fetchStart());
   };
 
   return (
-    <>
-      {repos.length ? (
-        <OuterList onScroll={debounceOnScroll(onScroll)}>
-          <AutoSizer>
-            {({ height, width }) => (
-              <FixedSizeList
-                initialScrollOffset={16}
-                itemCount={repos.length}
-                itemSize={120}
-                height={height}
-                width={width}
-                itemData={repos}
-              >
-                {({ index, style }) => (
-                  <Repository style={style} {...repos[index]} />
-                )}
-              </FixedSizeList>
-            )}
-          </AutoSizer>
-        </OuterList>
-      ) : null}
-      {error && (
-        <p>
-          Error:
-          {error}
-        </p>
+    <Container id="scroll">
+      {repos.length
+        ? repos.map(repo => <Repository key={repo.id} {...repo} />)
+        : null}
+      {error && <Alert severity="error">Error: {error}</Alert>}
+      {hasMore && (
+        <ButtonContainer>
+          <Button variant="contained" color="primary" onClick={onClick}>
+            Load more
+          </Button>
+        </ButtonContainer>
       )}
-    </>
+    </Container>
   );
 };
 

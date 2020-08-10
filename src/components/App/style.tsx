@@ -1,10 +1,11 @@
 import Spinner from "react-spinkit";
 import styled from "styled-components";
+import { Paper } from "@material-ui/core";
 
-export const Container = styled.div`
+export const Container = styled(Paper)`
   font-family: "Playfair Display", serif;
-  background: #f7f0f0;
   display: flex;
+  flex: 1;
   flex-direction: column;
   align-items: center;
   margin: auto;
@@ -17,23 +18,27 @@ export const Container = styled.div`
     width: 40%;
   }
   box-sizing: border-box;
-  border: 1px solid black;
-  box-shadow: 12px 12px 2px 1px;
 `;
-export const SearchPanel = styled.div`
-  margin-top: -1em;
-  margin-bottom: 1em;
-  display: inline-flex;
+
+export const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  width: 100%;
+  flex: 1;
   align-items: center;
 `;
+
+export const SearchContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 export const StyledSpinner = styled(Spinner)`
-  color: #972d16;
+  color: #e13535;
   visibility: hidden;
+  align-self: center;
   &.loading {
     visibility: visible;
   }
-`;
-export const StyledInput = styled.input`
-  font-size: 1em;
-  box-shadow: 6px 6px 2px 1px;
 `;
