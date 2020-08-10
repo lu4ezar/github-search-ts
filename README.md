@@ -1,9 +1,9 @@
 ## Github Search
 ```
-git clone https://github.com/lu4ezar/github-search
-cd github-search
-yarn install
-yarn start
+git clone https://github.com/lu4ezar/github-search-ts
+cd github-search-ts
+npm install
+npm start
 ```
 
 
