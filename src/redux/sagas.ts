@@ -1,65 +1,40 @@
 import { AxiosResponse } from "axios";
-import { takeLatest, call, put, select, delay } from "redux-saga/effects";
-import { fetchData, stripData, getNextPageUrl } from "../dataUtils";
+import { takeLatest, call, put, select } from "redux-saga/effects";
 import {
-  selectSearchString,
-  selectPagination,
-  selectLoadingStatus
-} from "./selectors";
-import { searchStringSlice } from "./slices/searchStringSlice";
-import { reposSlice } from "./slices/reposSlice";
+  fetchData,
+  getTotalPagesFromResponseHeader
+} from "./sagaLittleHelpers";
+import { selectSearchString, selectPagination } from "./selectors";
 import {
   fetchStart,
   fetchEnd,
   fetchSuccess,
-  fetchFailure,
-  fetchNextPage
+  fetchFailure
 } from "./fetchActions";
-import { IRepoArray } from "../types/repos";
 import { IPaginationState } from "../types/pagination";
-
-const { setSearchString } = searchStringSlice.actions;
-const { clearRepos } = reposSlice.actions;
-
-function* dataRequestNextAsync() {
-  const pagination: IPaginationState = yield select(selectPagination);
-  const requestUrl = pagination.nextPageUrl;
-  const hasNextPage = !!requestUrl;
-  const loading = yield select(selectLoadingStatus);
-  if (loading === "pending" || !hasNextPage) {
-    return;
-  }
-  yield put(fetchStart());
-  try {
-    const response: AxiosResponse = yield call(fetchData, {
-      nextPageUrl: requestUrl
-    });
-    const data: IRepoArray = stripData(response.data);
-    const nextPageUrl = getNextPageUrl(response);
-    yield put(fetchSuccess(data, nextPageUrl));
-  } catch (error) {
-    yield put(fetchFailure(error.message));
-  } finally {
-    yield put(fetchEnd());
-  }
-}
+import { SearchString } from "../types/searchString";
 
 function* dataRequestAsync() {
-  yield delay(2000);
-  const searchString = yield select(selectSearchString);
-  if (searchString.length < 3) {
-    return;
-  }
-  yield put(fetchStart());
+  const searchString: SearchString = yield select(selectSearchString);
+  const pagination: IPaginationState = yield select(selectPagination);
+  let { loadedPages, totalPages } = pagination;
+
   try {
-    const response: AxiosResponse = yield call(fetchData, { searchString });
-    if (!response.data.length) {
+    const response: AxiosResponse = yield call(
+      fetchData,
+      searchString,
+      loadedPages
+    );
+
+    if (!response.data?.length) {
       throw new Error("Nothing was found!");
     }
-    const data: IRepoArray = stripData(response.data);
-    const nextPageUrl = getNextPageUrl(response);
-    yield put(clearRepos());
-    yield put(fetchSuccess(data, nextPageUrl));
+
+    const { data, headers } = response;
+    if (!totalPages) {
+      totalPages = getTotalPagesFromResponseHeader(headers);
+    }
+    yield put(fetchSuccess(data, totalPages));
   } catch (error) {
     yield put(fetchFailure(error.message));
   } finally {
@@ -68,8 +43,7 @@ function* dataRequestAsync() {
 }
 
 function* watchDataRequest() {
-  yield takeLatest(setSearchString, dataRequestAsync);
-  yield takeLatest(fetchNextPage, dataRequestNextAsync);
+  yield takeLatest(fetchStart, dataRequestAsync);
 }
 
 export default watchDataRequest;
