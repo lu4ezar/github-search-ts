@@ -1,12 +1,12 @@
 import { createAction } from "@reduxjs/toolkit";
 import { IError } from "../types/error";
 import { IRepoArray } from "../types/repos";
-import { NextPageUrl } from "../types/pagination";
+import { TotalPages } from "../types/pagination";
 
 export const fetchSuccess = createAction(
   "fetch/success",
-  (repos: IRepoArray, nextPageUrl: NextPageUrl) => ({
-    payload: { repos, nextPageUrl }
+  (repos: IRepoArray, totalPages: TotalPages) => ({
+    payload: { repos, totalPages }
   })
 );
 
@@ -18,4 +18,4 @@ export const fetchStart = createAction("fetch/start");
 
 export const fetchEnd = createAction("fetch/end");
 
-export const fetchNextPage = createAction("fetch/next");
+export const dropState = createAction("dropState");
