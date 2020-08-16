@@ -1,17 +1,17 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { IRepo, IRepoArray } from "../../types/repos";
-import { fetchSuccess, dropState } from "../fetchActions";
-import { AxiosResponse } from "axios";
+import { createSlice } from '@reduxjs/toolkit';
+import { AxiosResponse } from 'axios';
+import { IRepo, IRepoArray } from '../../types/repos';
+import { fetchSuccess, dropState } from '../fetchActions';
 
 export const reposSlice = createSlice({
-  name: "repos",
+  name: 'repos',
   initialState: [] as IRepoArray,
   reducers: {},
-  extraReducers: builder =>
+  extraReducers: (builder) =>
     builder
       .addCase(fetchSuccess, (state, action) => {
         const {
-          payload: { repos }
+          payload: { repos },
         } = action;
         const strippedRepos = repos.map(
           ({
@@ -20,19 +20,19 @@ export const reposSlice = createSlice({
             html_url: url,
             stargazers_count: stargazers,
             watchers_count: watchers,
-            forks_count: forks
-          }: AxiosResponse["data"]): IRepo => ({
+            forks_count: forks,
+          }: AxiosResponse['data']): IRepo => ({
             id,
             name,
             url,
             stargazers,
             watchers,
-            forks
-          })
+            forks,
+          }),
         );
         return [...state, ...strippedRepos];
       })
-      .addCase(dropState, () => [] as IRepoArray)
+      .addCase(dropState, () => [] as IRepoArray),
 });
 
 export default reposSlice.reducer;

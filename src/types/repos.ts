@@ -17,8 +17,8 @@ export type IRepo = {
 export type IRepoArray = Array<IRepo>;
 
 export type IRepoAction =
-  | { type: "repos/clearRepos" }
-  | { type: "repos/addRepos" };
+  | { type: 'repos/clearRepos' }
+  | { type: 'repos/addRepos' };
 
 export interface IRepoState {
   readonly repos: IRepoArray;

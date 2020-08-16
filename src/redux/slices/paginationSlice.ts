@@ -1,31 +1,31 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchSuccess, dropState } from "../fetchActions";
+import { createSlice } from '@reduxjs/toolkit';
+import { fetchSuccess, dropState } from '../fetchActions';
 
 const initialState = {
   currentPage: 0,
   loadedPages: 0,
-  totalPages: 0
+  totalPages: 0,
 };
 
 export const paginationSlice = createSlice({
-  name: "pagination",
+  name: 'pagination',
   initialState,
   reducers: {
     setPage: (state, action) => {
       state.currentPage = action.payload;
-    }
+    },
   },
-  extraReducers: builder =>
+  extraReducers: (builder) =>
     builder
       .addCase(fetchSuccess, (state, action) => {
         const {
-          payload: { totalPages }
+          payload: { totalPages },
         } = action;
-        state.currentPage = state.currentPage + 1;
-        state.loadedPages = state.loadedPages + 1;
+        state.currentPage += 1;
+        state.loadedPages += 1;
         state.totalPages = totalPages;
       })
-      .addCase(dropState, () => initialState)
+      .addCase(dropState, () => initialState),
 });
 
 export default paginationSlice.reducer;

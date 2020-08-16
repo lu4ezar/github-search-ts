@@ -1,9 +1,9 @@
-import Spinner from "react-spinkit";
-import styled from "styled-components";
-import { Paper } from "@material-ui/core";
+import Spinner from 'react-spinkit';
+import styled from 'styled-components';
+import { Paper } from '@material-ui/core';
 
 export const Container = styled(Paper)`
-  font-family: "Playfair Display", serif;
+  font-family: 'Playfair Display', serif;
   display: flex;
   flex: 1;
   flex-direction: column;

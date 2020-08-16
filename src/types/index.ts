@@ -1,11 +1,11 @@
-import { Store as ReduxStore, Dispatch as ReduxDispatch } from "redux";
-import { IRepoState, IRepoAction } from "./repos";
-import { ISearchStringState, ISearchStringAction } from "./searchString";
-import { ILoadingState } from "./loading";
-import { IErrorState } from "./error";
-import { IPaginationState } from "./pagination";
+import { Store as ReduxStore, Dispatch as ReduxDispatch } from 'redux';
+import { IRepoState, IRepoAction } from './repos';
+import { ISearchStringState, ISearchStringAction } from './searchString';
+import { ILoadingState } from './loading';
+import { IErrorState } from './error';
+import { IPaginationState } from './pagination';
 
-export type ReduxInitAction = { type: "@@INIT" };
+export type ReduxInitAction = { type: '@@INIT' };
 
 type State = IRepoState &
   ISearchStringState &

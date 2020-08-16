@@ -1,14 +1,14 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { ILoading } from "../../types/loading";
+import { createSlice } from '@reduxjs/toolkit';
+import { ILoading } from '../../types/loading';
 
 const loadingSlice = createSlice({
-  name: "loading",
-  initialState: "idle" as ILoading,
+  name: 'loading',
+  initialState: 'idle' as ILoading,
   reducers: {},
-  extraReducers: builder =>
+  extraReducers: (builder) =>
     builder
-      .addCase("fetch/start", () => "pending")
-      .addCase("fetch/end", () => "idle")
+      .addCase('fetch/start', () => 'pending')
+      .addCase('fetch/end', () => 'idle'),
 });
 
 export default loadingSlice.reducer;

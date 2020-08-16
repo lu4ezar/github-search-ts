@@ -1,18 +1,18 @@
-import { AxiosResponse } from "axios";
-import { takeLatest, call, put, select } from "redux-saga/effects";
+import { AxiosResponse } from 'axios';
+import { takeLatest, call, put, select } from 'redux-saga/effects';
 import {
   fetchData,
-  getTotalPagesFromResponseHeader
-} from "./sagaLittleHelpers";
-import { selectSearchString, selectPagination } from "./selectors";
+  getTotalPagesFromResponseHeader,
+} from './sagaLittleHelpers';
+import { selectSearchString, selectPagination } from './selectors';
 import {
   fetchStart,
   fetchEnd,
   fetchSuccess,
-  fetchFailure
-} from "./fetchActions";
-import { IPaginationState } from "../types/pagination";
-import { SearchString } from "../types/searchString";
+  fetchFailure,
+} from './fetchActions';
+import { IPaginationState } from '../types/pagination';
+import { SearchString } from '../types/searchString';
 
 function* dataRequestAsync() {
   const searchString: SearchString = yield select(selectSearchString);
@@ -23,11 +23,11 @@ function* dataRequestAsync() {
     const response: AxiosResponse = yield call(
       fetchData,
       searchString,
-      loadedPages
+      loadedPages,
     );
 
     if (!response.data?.length) {
-      throw new Error("Nothing was found!");
+      throw new Error('Nothing was found!');
     }
 
     const { data, headers } = response;

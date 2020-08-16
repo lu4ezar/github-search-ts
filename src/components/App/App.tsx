@@ -1,17 +1,17 @@
-import React, { SyntheticEvent, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Pagination from "@material-ui/lab/Pagination";
-import List from "../List";
-import SearchBar from "../SearchBar";
-import { paginationSlice } from "../../redux/slices/paginationSlice";
-import { fetchStart, dropState } from "../../redux/fetchActions";
+import React, { SyntheticEvent, useRef } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import Pagination from '@material-ui/lab/Pagination';
+import List from '../List';
+import SearchBar from '../SearchBar';
+import { paginationSlice } from '../../redux/slices/paginationSlice';
+import { fetchStart, dropState } from '../../redux/fetchActions';
 import {
   selectLoadingStatus,
   selectPagination,
   selectSearchString
-} from "../../redux/selectors";
-import { Container, Content, SearchContainer, StyledSpinner } from "./style";
-import { searchStringSlice } from "../../redux/slices/searchStringSlice";
+} from '../../redux/selectors';
+import { Container, Content, SearchContainer, StyledSpinner } from './style';
+import { searchStringSlice } from '../../redux/slices/searchStringSlice';
 
 const App = (): JSX.Element => {
   const paginationActions = paginationSlice.actions;
@@ -23,7 +23,7 @@ const App = (): JSX.Element => {
   const dispatch = useDispatch();
 
   const loading = useSelector(selectLoadingStatus);
-  const className = loading === "idle" ? "" : "loading";
+  const className = loading === 'idle' ? '' : 'loading';
 
   const { setSearchString } = searchStringSlice.actions;
   const searchString = useSelector(selectSearchString);

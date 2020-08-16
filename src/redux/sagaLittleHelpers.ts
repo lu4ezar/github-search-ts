@@ -1,8 +1,8 @@
-import axios, { AxiosResponse } from "axios";
-import { SearchString } from "../types/searchString";
-import { LoadedPages } from "../types/pagination";
+import axios, { AxiosResponse } from 'axios';
+import { SearchString } from '../types/searchString';
+import { LoadedPages } from '../types/pagination';
 
-const API_ROOT = "https://api.github.com";
+const API_ROOT = 'https://api.github.com';
 
 export const fetchData = async (
   searchString: SearchString,
@@ -21,19 +21,19 @@ export const fetchData = async (
 };
 
 const getLastPageNumber = (link: string) => {
-  const params = link.split("?")[1];
-  const lastPageParam = params.split("&")[1];
-  return Number(lastPageParam.replace(/[^0-9]/g, ""));
+  const params = link.split('?')[1];
+  const lastPageParam = params.split('&')[1];
+  return Number(lastPageParam.replace(/[^0-9]/g, ''));
 };
 
 export const getTotalPagesFromResponseHeader = (
-  headers: AxiosResponse["headers"]
+  headers: AxiosResponse['headers']
 ) => {
   const { link } = headers;
   if (!link) {
     return 0;
   }
-  const linkFragments = link.split(",");
+  const linkFragments = link.split(',');
   const lastPageLink = linkFragments.find((link: string) =>
     link.match(/rel="last"/g)
   );
