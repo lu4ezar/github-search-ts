@@ -4,8 +4,8 @@ export const searchStringSlice = createSlice({
   name: 'searchString',
   initialState: '',
   reducers: {
-    setSearchString: (_, action) => action.payload
-  }
+    setSearchString: (_, action) => action.payload,
+  },
 });
 
 export default searchStringSlice.reducer;
