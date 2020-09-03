@@ -14,7 +14,7 @@ export const fetchFailure = createAction('fetch/failure', (err: IError) => ({
   payload: err,
 }));
 
-export const fetchStart = createAction('fetch/start');
+export const fetchStart = createAction('fetch/start', (page = 1) => ({ payload: page }));
 
 export const fetchEnd = createAction('fetch/end');
 
