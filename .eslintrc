@@ -1,45 +1,34 @@
 {
-	"extends": [
-		"react-app",
-		"airbnb",
-		"plugin:@typescript-eslint/recommended"
-	],
-	"overrides": [
-		{
-			"files": [
-				"**/*.ts?(x)"
-			],
-			"rules": {
-				"react/jsx-filename-extension": [
-					1,
-					{
-						"extensions": [
-							".tsx"
-						]
-					}
-				],
-				"import/extensions": [
-					"error",
-					"ignorePackages",
-					{
-						"ts": "never",
-						"tsx": "never"
-					}
-				]
-			}
-		}
-	],
-	"settings": {
-		"import/parsers": {
-			"@typescript-eslint/parser": [
-				".ts",
-				".tsx"
-			]
-		},
-		"import/resolver": {
-			"typescript": {
-				"alwaysTryTypes": true
-			}
-		}
-	}
+  "extends": ["react-app", "airbnb", "plugin:@typescript-eslint/recommended"],
+  "overrides": [
+    {
+      "files": ["**/*.ts?(x)"],
+      "rules": {
+        "react/jsx-filename-extension": [
+          1,
+          {
+            "extensions": [".tsx"]
+          }
+        ],
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "ts": "never",
+            "tsx": "never"
+          }
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"]
+    },
+    "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true
+      }
+    }
+  }
 }
