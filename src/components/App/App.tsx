@@ -53,7 +53,7 @@ const App = (): JSX.Element => {
           <StyledSpinner name="pulse" className={className} />
           <SearchBar onSubmit={onSubmit} inputElRef={inputEl} />
         </SearchContainer>
-        <List hasMore={hasMore} />
+        <List />
       </Content>
       <Pagination
         count={loadedPages}
