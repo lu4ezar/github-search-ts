@@ -22,11 +22,7 @@ import {
 import { searchStringSlice } from '../../redux/slices/searchStringSlice';
 
 const App = (): JSX.Element => {
-  const paginationActions = paginationSlice.actions;
-  const { currentPage, loadedPages, totalPages } = useSelector(
-    selectPagination
-  );
-  const hasMore = loadedPages < totalPages;
+  const {
 
   const dispatch = useDispatch();
 
