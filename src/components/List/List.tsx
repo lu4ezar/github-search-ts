@@ -16,7 +16,7 @@ const List = (): JSX.Element => {
     if (scrollEl) {
       scrollEl.scrollTo({
         top: 0,
-        behavior: 'smooth'
+        behavior: 'smooth',
       });
     }
   }, [repos]);
@@ -24,7 +24,7 @@ const List = (): JSX.Element => {
   return (
     <Container id="scroll">
       {repos.length
-        ? repos.map(repo => <Repository key={repo.id} {...repo} />)
+        ? repos.map((repo) => <Repository key={repo.id} {...repo} />)
         : null}
       {error && (
         <Alert severity="error">
