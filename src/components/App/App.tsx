@@ -7,6 +7,7 @@ import {
   MdNavigateBefore,
   MdNavigateNext,
 } from 'react-icons/md';
+import { Link } from 'parse-link-header';
 import List from '../List';
 import SearchBar from '../SearchBar';
 import { paginationSlice } from '../../redux/slices/paginationSlice';
