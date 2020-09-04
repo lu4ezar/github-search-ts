@@ -22,10 +22,6 @@ const List = ({ hasMore }: { hasMore: boolean }): JSX.Element => {
     }
   }, [repos]);
 
-  const onClick = () => {
-    dispatch(fetchStart());
-  };
-
   return (
     <Container id="scroll">
       {repos.length
@@ -36,13 +32,6 @@ const List = ({ hasMore }: { hasMore: boolean }): JSX.Element => {
           Error:
           {error}
         </Alert>
-      )}
-      {hasMore && (
-        <ButtonContainer>
-          <Button variant="contained" color="primary" onClick={onClick}>
-            Load more
-          </Button>
-        </ButtonContainer>
       )}
     </Container>
   );
