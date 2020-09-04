@@ -7,9 +7,7 @@ import { fetchStart } from '../../redux/fetchActions';
 import { Container, ButtonContainer } from './style';
 import { selectCurrentPage, selectError } from '../../redux/selectors';
 
-const List = ({ hasMore }: { hasMore: boolean }): JSX.Element => {
-  const dispatch = useDispatch();
-  const repos = useSelector(selectCurrentPage);
+const List = (): JSX.Element => {
   const error = useSelector(selectError);
 
   useEffect(() => {
