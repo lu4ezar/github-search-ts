@@ -23,6 +23,8 @@ import { searchStringSlice } from '../../redux/slices/searchStringSlice';
 
 const App = (): JSX.Element => {
   const {
+    first, prev, next, last, current,
+  } = useSelector(selectPagination);
 
   const dispatch = useDispatch();
 
