@@ -10,7 +10,6 @@ import {
 import { Link } from 'parse-link-header';
 import List from '../List';
 import SearchBar from '../SearchBar';
-import { paginationSlice } from '../../redux/slices/paginationSlice';
 import { fetchStart, dropState } from '../../redux/fetchActions';
 import {
   selectLoadingStatus,
