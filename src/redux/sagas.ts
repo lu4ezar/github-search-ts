@@ -13,6 +13,24 @@ import {
 } from './fetchActions';
 import { IPaginationState } from '../types/pagination';
 import { SearchString } from '../types/searchString';
+import api from '../axios';
+
+const fetchData = async ({
+  searchString,
+  page,
+}: {searchString: SearchString; page: IPagination['current']}): Promise<AxiosResponse> => {
+  try {
+    const response = await (api).get(`/orgs/${searchString}/repos`, {
+      params: {
+        per_page: 10,
+        page,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
 
 function* dataRequestAsync() {
   const searchString: SearchString = yield select(selectSearchString);
