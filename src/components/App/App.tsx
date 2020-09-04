@@ -14,9 +14,11 @@ import { fetchStart, dropState } from '../../redux/fetchActions';
 import {
   selectLoadingStatus,
   selectPagination,
-  selectSearchString
+  selectSearchString,
 } from '../../redux/selectors';
-import { Container, Content, SearchContainer, StyledSpinner } from './style';
+import {
+  Container, Content, SearchContainer, StyledSpinner,
+} from './style';
 import { searchStringSlice } from '../../redux/slices/searchStringSlice';
 
 const App = (): JSX.Element => {
