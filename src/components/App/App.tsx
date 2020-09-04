@@ -1,6 +1,12 @@
 import React, { SyntheticEvent, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Pagination from '@material-ui/lab/Pagination';
+import { IconButton } from '@material-ui/core';
+import {
+  MdFirstPage,
+  MdLastPage,
+  MdNavigateBefore,
+  MdNavigateNext,
+} from 'react-icons/md';
 import List from '../List';
 import SearchBar from '../SearchBar';
 import { paginationSlice } from '../../redux/slices/paginationSlice';
@@ -55,12 +61,21 @@ const App = (): JSX.Element => {
         </SearchContainer>
         <List />
       </Content>
-      <Pagination
-        count={loadedPages}
-        page={currentPage}
-        shape="rounded"
-        onChange={(_, pageNumber) => onPageChange(pageNumber)}
-      />
+      <div>
+        <IconButton disabled={!first?.page} onClick={(): void => onPageChange(first as Link)}>
+          <MdFirstPage />
+        </IconButton>
+        <IconButton disabled={!prev?.page} onClick={(): void => onPageChange(prev as Link)}>
+          <MdNavigateBefore />
+        </IconButton>
+        <IconButton disabled>{current}</IconButton>
+        <IconButton disabled={!next?.page} onClick={(): void => onPageChange(next as Link)}>
+          <MdNavigateNext />
+        </IconButton>
+        <IconButton disabled={!last?.page} onClick={(): void => onPageChange(last as Link)}>
+          <MdLastPage />
+        </IconButton>
+      </div>
     </Container>
   );
 };
