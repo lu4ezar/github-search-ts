@@ -37,8 +37,8 @@ const App = (): JSX.Element => {
   const searchString = useSelector(selectSearchString);
   const inputEl = useRef<HTMLInputElement>(null);
 
-  const onPageChange = (pageNumber: number): void => {
-    dispatch(paginationActions.setPage(pageNumber));
+  const onPageChange = (link: Link): void => {
+    dispatch(fetchStart(link.page));
   };
 
   const onSubmit = (e: SyntheticEvent<HTMLElement>): void => {
