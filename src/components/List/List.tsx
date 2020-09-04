@@ -8,6 +8,7 @@ import { Container, ButtonContainer } from './style';
 import { selectCurrentPage, selectError } from '../../redux/selectors';
 
 const List = (): JSX.Element => {
+  const repos = useSelector(selectRepos);
   const error = useSelector(selectError);
 
   useEffect(() => {
