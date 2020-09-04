@@ -8,7 +8,7 @@ export const reposSlice = createSlice({
   initialState: [] as IRepoArray,
   reducers: {},
   extraReducers: (builder) => builder
-    .addCase(fetchSuccess, (state, action) => {
+    .addCase(fetchSuccess, (_, action) => {
       const {
         payload: { repos },
       } = action;
@@ -29,7 +29,7 @@ export const reposSlice = createSlice({
           forks,
         }),
       );
-      return [...state, ...strippedRepos];
+      return strippedRepos;
     })
     .addCase(dropState, () => [] as IRepoArray),
 });
