@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { Button } from '@material-ui/core';
+import { useSelector } from 'react-redux';
 import { Alert } from '@material-ui/lab';
 import Repository from '../Repository';
-import { fetchStart } from '../../redux/fetchActions';
-import { Container, ButtonContainer } from './style';
-import { selectCurrentPage, selectError } from '../../redux/selectors';
+import { Container } from './style';
+import { selectRepos, selectError } from '../../redux/selectors';
 
 const List = (): JSX.Element => {
   const repos = useSelector(selectRepos);
