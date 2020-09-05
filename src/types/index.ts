@@ -8,10 +8,10 @@ import { IPaginationState } from './pagination';
 export type ReduxInitAction = { type: '@@INIT' };
 
 type State = IRepoState &
-  ISearchStringState &
-  ILoadingState &
-  IErrorState &
-  IPaginationState;
+ISearchStringState &
+ILoadingState &
+IErrorState &
+IPaginationState;
 
 export type Action = ReduxInitAction | IRepoAction | ISearchStringAction;
 
