@@ -9,8 +9,8 @@ const errorSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => builder
     .addCase(fetchFailure, (_, action) => action.payload)
-    .addCase(fetchStart, (_, __) => null)
-    .addCase(searchStringSlice.actions.setSearchString, (_, __) => null),
+    .addCase(fetchStart, () => null)
+    .addCase(searchStringSlice.actions.setSearchString, () => null),
 });
 
 export default errorSlice.reducer;
