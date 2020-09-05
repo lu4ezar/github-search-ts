@@ -1,24 +1,30 @@
 import React, { SyntheticEvent, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Pagination from '@material-ui/lab/Pagination';
+import { IconButton } from '@material-ui/core';
+import {
+  MdFirstPage,
+  MdLastPage,
+  MdNavigateBefore,
+  MdNavigateNext,
+} from 'react-icons/md';
+import { Link } from 'parse-link-header';
 import List from '../List';
 import SearchBar from '../SearchBar';
-import { paginationSlice } from '../../redux/slices/paginationSlice';
 import { fetchStart, dropState } from '../../redux/fetchActions';
 import {
   selectLoadingStatus,
   selectPagination,
-  selectSearchString
+  selectSearchString,
 } from '../../redux/selectors';
-import { Container, Content, SearchContainer, StyledSpinner } from './style';
+import {
+  Container, Content, SearchContainer, StyledSpinner,
+} from './style';
 import { searchStringSlice } from '../../redux/slices/searchStringSlice';
 
 const App = (): JSX.Element => {
-  const paginationActions = paginationSlice.actions;
-  const { currentPage, loadedPages, totalPages } = useSelector(
-    selectPagination
-  );
-  const hasMore = loadedPages < totalPages;
+  const {
+    first, prev, next, last, current,
+  } = useSelector(selectPagination);
 
   const dispatch = useDispatch();
 
@@ -29,8 +35,8 @@ const App = (): JSX.Element => {
   const searchString = useSelector(selectSearchString);
   const inputEl = useRef<HTMLInputElement>(null);
 
-  const onPageChange = (pageNumber: number): void => {
-    dispatch(paginationActions.setPage(pageNumber));
+  const onPageChange = (link: Link): void => {
+    dispatch(fetchStart(link.page));
   };
 
   const onSubmit = (e: SyntheticEvent<HTMLElement>): void => {
@@ -53,14 +59,23 @@ const App = (): JSX.Element => {
           <StyledSpinner name="pulse" className={className} />
           <SearchBar onSubmit={onSubmit} inputElRef={inputEl} />
         </SearchContainer>
-        <List hasMore={hasMore} />
+        <List />
       </Content>
-      <Pagination
-        count={loadedPages}
-        page={currentPage}
-        shape="rounded"
-        onChange={(_, pageNumber) => onPageChange(pageNumber)}
-      />
+      <div>
+        <IconButton disabled={!first?.page} onClick={(): void => onPageChange(first as Link)}>
+          <MdFirstPage />
+        </IconButton>
+        <IconButton disabled={!prev?.page} onClick={(): void => onPageChange(prev as Link)}>
+          <MdNavigateBefore />
+        </IconButton>
+        <IconButton disabled>{current}</IconButton>
+        <IconButton disabled={!next?.page} onClick={(): void => onPageChange(next as Link)}>
+          <MdNavigateNext />
+        </IconButton>
+        <IconButton disabled={!last?.page} onClick={(): void => onPageChange(last as Link)}>
+          <MdLastPage />
+        </IconButton>
+      </div>
     </Container>
   );
 };

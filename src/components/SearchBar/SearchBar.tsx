@@ -9,9 +9,9 @@ type Props = {
 };
 
 const SearchBar = ({ onSubmit, inputElRef }: Props): JSX.Element => (
-  <Paper component='form' onSubmit={onSubmit}>
-    <StyledInput inputRef={inputElRef} placeholder='enter organization name' />
-    <IconButton type='submit' aria-label='search'>
+  <Paper component="form" onSubmit={onSubmit}>
+    <StyledInput inputRef={inputElRef} placeholder="enter organization name" />
+    <IconButton type="submit" aria-label="search">
       <MdSearch />
     </IconButton>
   </Paper>

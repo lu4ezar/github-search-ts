@@ -1,40 +1,51 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { AxiosResponse } from 'axios';
-import { takeLatest, call, put, select } from 'redux-saga/effects';
 import {
-  fetchData,
-  getTotalPagesFromResponseHeader,
-} from './sagaLittleHelpers';
-import { selectSearchString, selectPagination } from './selectors';
+  takeLatest, call, put, select,
+} from 'redux-saga/effects';
+import parse from 'parse-link-header';
 import {
   fetchStart,
   fetchEnd,
   fetchSuccess,
   fetchFailure,
 } from './fetchActions';
-import { IPaginationState } from '../types/pagination';
 import { SearchString } from '../types/searchString';
+import { selectSearchString } from './selectors';
+import { IPagination } from '../types/pagination';
+import api from '../axios';
 
-function* dataRequestAsync() {
-  const searchString: SearchString = yield select(selectSearchString);
-  const pagination: IPaginationState = yield select(selectPagination);
-  let { loadedPages, totalPages } = pagination;
-
+const fetchData = async ({
+  searchString,
+  page,
+}: {
+  searchString: SearchString;
+  page: IPagination['current'];
+}): Promise<AxiosResponse> => {
   try {
-    const response: AxiosResponse = yield call(
-      fetchData,
+    const response = await api.get(`/orgs/${searchString}/repos`, {
+      params: {
+        per_page: 10,
+        page,
+      },
+    });
+    return response;
+  } catch (error) {
+    return error.message;
+  }
+};
+
+function* dataRequestAsync(action: ReturnType<typeof fetchStart>) {
+  const searchString: SearchString = yield select(selectSearchString);
+  const page = action.payload;
+  try {
+    const response: AxiosResponse = yield call(fetchData, {
       searchString,
-      loadedPages,
-    );
-
-    if (!response.data?.length) {
-      throw new Error('Nothing was found!');
-    }
-
-    const { data, headers } = response;
-    if (!totalPages) {
-      totalPages = getTotalPagesFromResponseHeader(headers);
-    }
-    yield put(fetchSuccess(data, totalPages));
+      page,
+    });
+    const { data, headers: { link } } = response;
+    const pagesInfo = { ...parse(link), current: page } as IPagination;
+    yield put(fetchSuccess(data, pagesInfo));
   } catch (error) {
     yield put(fetchFailure(error.message));
   } finally {
@@ -42,7 +53,7 @@ function* dataRequestAsync() {
   }
 }
 
-function* watchDataRequest() {
+function* watchDataRequest(): Generator {
   yield takeLatest(fetchStart, dataRequestAsync);
 }
 

@@ -2,7 +2,7 @@ import React from 'react';
 import { IconContext } from 'react-icons';
 import { GoStar, GoEye, GoRepoForked } from 'react-icons/go';
 import { IRepo } from '../../types/repos';
-import { StyledRepository } from './style';
+import StyledRepository from './style';
 
 const Repository = ({
   name,
@@ -13,7 +13,7 @@ const Repository = ({
 }: IRepo): JSX.Element => (
   <StyledRepository>
     <h3>
-      <a href={url} target='_blank' rel='noopener noreferrer'>
+      <a href={url} target="_blank" rel="noopener noreferrer">
         {name}
       </a>
     </h3>

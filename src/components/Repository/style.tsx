@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import { Card } from "@material-ui/core";
+import styled from 'styled-components';
+import { Card } from '@material-ui/core';
 
-export const StyledRepository = styled(Card)`
+const StyledRepository = styled(Card)`
   margin: 1em;
   padding: 1em;
   & > p {
@@ -15,3 +15,5 @@ export const StyledRepository = styled(Card)`
     padding-right: 1rem;
   }
 `;
+
+export default StyledRepository;
