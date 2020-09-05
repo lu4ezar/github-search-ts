@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import { AxiosResponse } from 'axios';
 import {
   takeLatest, call, put, select,
@@ -17,9 +18,12 @@ import api from '../axios';
 const fetchData = async ({
   searchString,
   page,
-}: {searchString: SearchString; page: IPagination['current']}): Promise<AxiosResponse> => {
+}: {
+  searchString: SearchString;
+  page: IPagination['current'];
+}): Promise<AxiosResponse> => {
   try {
-    const response = await (api).get(`/orgs/${searchString}/repos`, {
+    const response = await api.get(`/orgs/${searchString}/repos`, {
       params: {
         per_page: 10,
         page,
