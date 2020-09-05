@@ -1,5 +1,12 @@
 {
-  "extends": ["react-app", "airbnb", "plugin:@typescript-eslint/recommended"],
+  "extends": [
+    "react-app",
+    "airbnb-typescript",
+    "plugin:@typescript-eslint/recommended"
+  ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "overrides": [
     {
       "files": ["**/*.ts?(x)"],
