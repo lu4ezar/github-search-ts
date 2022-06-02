@@ -42,7 +42,7 @@
 	},
 	"devDependencies": {
 		"@types/parse-link-header": "2.0.0",
-		"@types/react-dom": "17.0.16",
+		"@types/react-dom": "17.0.17",
 		"@types/react": "17.0.45",
 		"@types/react-redux": "7.1.23",
 		"@types/react-spinkit": "3.0.7",
