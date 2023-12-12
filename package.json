@@ -12,7 +12,7 @@
 		"react": "17.0.2",
 		"react-dom": "17.0.2",
 		"react-icons": "4.3.1",
-		"react-redux": "7.2.8",
+		"react-redux": "7.2.9",
 		"react-scripts": "^5.0.0",
 		"react-spinkit": "3.0.0",
 		"redux": "4.1.2",
@@ -43,7 +43,7 @@
 	"devDependencies": {
 		"@types/parse-link-header": "2.0.0",
 		"@types/react-dom": "17.0.17",
-		"@types/react-redux": "7.1.24",
+		"@types/react-redux": "7.1.33",
 		"@types/react": "17.0.52",
 		"@types/react-spinkit": "3.0.7",
 		"@types/styled-components": "5.1.24",
